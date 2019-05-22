@@ -15,7 +15,7 @@ services:
             - '${MYSQL_PORT}:3306'
         networks:
             - shared_mysql
-    php:
+    api_php:
         build:
             context: .
             dockerfile: docker/php/Dockerfile
@@ -34,7 +34,7 @@ services:
         ports:
             - '${NGINX_PORT}:80'
         depends_on:
-            - php
+            - api_php
         networks:
             - shared_mysql
     phpmyadmin:
@@ -47,7 +47,7 @@ services:
             MYSQL_USERNAME: ${MYSQL_USER}
             MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
         depends_on:
-            - php
+            - api_php
             - mysql
         networks:
             - shared_mysql
